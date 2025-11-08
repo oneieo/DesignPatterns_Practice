@@ -1,11 +1,12 @@
 <script setup lang="ts">
 //import ChuseokPage from "./components/ChuseokPage.vue";
 //import Prototype from "./components/Prototype.vue";
-import Composite from "./components/Composite.vue";
+//import Composite from "./components/Composite.vue";
+import TemplateMethod from "./components/TemplateMethod.vue";
 </script>
 
 <template>
-  <Composite />
+  <TemplateMethod />
 </template>
 
 <style scoped>

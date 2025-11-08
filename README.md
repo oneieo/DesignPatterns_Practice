@@ -4,7 +4,7 @@
 
 이 프로젝트는 사용자와의 인터랙션을 통해 한가위의 다양한 정보(음식, 풍습, 이야기)를 탐색하고, 소원을 빌어보는 간단한 경험을 제공합니다.
 
-웹페이지 보러가기 ➡️ [![Live Demo](https://img.shields.io/badge/demo-live-green)](https://oneieo.github.io/chuseok/)
+웹페이지 보러가기 ➡️ [![Live Demo](https://img.shields.io/badge/demo-live-green)](https://oneieo.github.io/DesignPatterns_Practice/)
 
 ---
 
