@@ -109,9 +109,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
-// ============ Composite 패턴 구현 ============
-
-// Component: 공통 인터페이스
 interface CardComponent {
   id: string;
   getCards(): CardData[];
@@ -119,7 +116,6 @@ interface CardComponent {
   display(): void;
 }
 
-// 개별 카드 데이터 인터페이스
 interface CardData {
   id: string;
   title: string;
@@ -128,7 +124,6 @@ interface CardData {
   imageAlt: string;
 }
 
-// Leaf: 개별 카드 (단일 객체)
 class Card implements CardComponent {
   constructor(
     public id: string,
@@ -159,7 +154,6 @@ class Card implements CardComponent {
   }
 }
 
-// Composite: 카드 그룹 (복합 객체)
 class CardGroup implements CardComponent {
   private children: CardComponent[] = [];
 
@@ -190,14 +184,12 @@ class CardGroup implements CardComponent {
   }
 }
 
-// 카드 계층 구조 생성 팩토리
 class ChuseokCardFactory {
   static createCardStructure(): {
     foodGroup: CardGroup;
     customGroup: CardGroup;
     storyGroup: CardGroup;
   } {
-    // 음식 카드 그룹
     const foodGroup = new CardGroup("food", "한가위 음식");
     foodGroup.add(
       new Card(
@@ -227,7 +219,6 @@ class ChuseokCardFactory {
       )
     );
 
-    // 전통 풍습 카드 그룹
     const customGroup = new CardGroup("custom", "전통 풍습");
     customGroup.add(
       new Card(
@@ -257,7 +248,6 @@ class ChuseokCardFactory {
       )
     );
 
-    // 이야기 카드 그룹
     const storyGroup = new CardGroup("story", "추석 이야기");
     storyGroup.add(
       new Card(
@@ -291,29 +281,23 @@ class ChuseokCardFactory {
   }
 }
 
-// ============ Vue Composition API ============
-
 const activeView = ref<"main" | "food" | "game" | "story">("main");
 const greetingMessage = ref<string>(
   "보름달처럼 넉넉하고 풍요로운 마음으로,\n즐거운 추석 연휴 보내시길 기원합니다."
 );
 
-// Composite 패턴: 카드 계층 구조 생성
 const { foodGroup, customGroup, storyGroup } =
   ChuseokCardFactory.createCardStructure();
 
-// 각 카드 타입별 데이터 (그룹에서 가져옴)
 const foodCards = ref<CardData[]>([]);
 const customCards = ref<CardData[]>([]);
 const storyCards = ref<CardData[]>([]);
 
-// 컴포넌트 마운트 시 카드 데이터 로드
 onMounted(() => {
   foodCards.value = foodGroup.getCards();
   customCards.value = customGroup.getCards();
   storyCards.value = storyGroup.getCards();
 
-  // Composite 패턴 구조 출력 (개발자 콘솔)
   console.log("=== Composite 패턴 구조 ===");
   foodGroup.display();
   customGroup.display();
@@ -347,10 +331,8 @@ const onImgError = (event: Event) => {
 </script>
 
 <style scoped>
-/* 프리텐다드 웹폰트 임포트 (CDN) */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
-/* 전역 스타일 초기화 및 기본 설정 */
 :global(body, html) {
   margin: 0;
   padding: 0;
@@ -366,7 +348,6 @@ const onImgError = (event: Event) => {
   align-items: center;
 }
 
-/* 메인 컨테이너 스타일 */
 .chuseok-container {
   font-family: "Pretendard", sans-serif;
   display: flex;
@@ -383,7 +364,6 @@ const onImgError = (event: Event) => {
   overflow-x: hidden;
 }
 
-/* 헤더 스타일 */
 .header h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -399,7 +379,6 @@ const onImgError = (event: Event) => {
   color: #d0c0a0;
 }
 
-/* --- 메인 컨텐츠 영역 (공통) --- */
 .main-content,
 .content-section {
   display: flex;
@@ -410,7 +389,6 @@ const onImgError = (event: Event) => {
   margin: 5rem 0;
 }
 
-/* --- 트랜지션(Fade) 효과 --- */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.4s ease;
@@ -420,7 +398,6 @@ const onImgError = (event: Event) => {
   opacity: 0;
 }
 
-/* --- 메인 뷰 --- */
 .moon-wrapper {
   position: relative;
   animation: gentle-glow 4s ease-in-out infinite;
@@ -482,7 +459,6 @@ const onImgError = (event: Event) => {
   transform: translateY(0);
 }
 
-/* 네비게이션 버튼 */
 .nav-buttons {
   display: flex;
   gap: 1rem;
@@ -507,7 +483,6 @@ const onImgError = (event: Event) => {
   transform: translateY(-2px);
 }
 
-/* --- 컨텐츠 섹션 --- */
 .content-section h2 {
   font-size: 2.2rem;
   font-weight: 700;
@@ -515,14 +490,12 @@ const onImgError = (event: Event) => {
   margin-bottom: 2.5rem;
 }
 
-/* 카드 그리드 */
 .card-grid {
   display: grid;
   gap: 1.5rem;
   width: 100%;
 }
 
-/* 컨텐츠 카드 */
 .info-card {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -563,7 +536,6 @@ const onImgError = (event: Event) => {
   line-height: 1.6;
 }
 
-/* 돌아가기 버튼 */
 .back-button {
   font-family: "Pretendard", sans-serif;
   font-size: 1rem;
@@ -585,14 +557,12 @@ const onImgError = (event: Event) => {
   box-shadow: 0 6px 20px rgba(240, 230, 210, 0.3);
 }
 
-/* --- 푸터 --- */
 .footer {
   font-size: 1rem;
   color: #d0c0a0;
   margin-top: 2rem;
 }
 
-/* --- 달빛 애니메이션 --- */
 @keyframes gentle-glow {
   0% {
     transform: scale(1);
@@ -608,7 +578,6 @@ const onImgError = (event: Event) => {
   }
 }
 
-/* --- 모바일 반응형 스타일 --- */
 @media (max-width: 768px) {
   .header h1 {
     font-size: 2.2rem;

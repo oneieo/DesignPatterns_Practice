@@ -2,15 +2,9 @@
   <div class="chuseok-container">
     <header class="header">
       <h1>풍요로운 한가위</h1>
-      <!-- <h2>소원 비는 보름달</h2> -->
     </header>
 
-    <!-- 
-        Vue의 <Transition> 컴포넌트를 사용해
-        'main', 'food', 'game' 뷰가 전환될 때 부드러운 fade 효과를 줍니다.
-      -->
     <Transition name="fade" mode="out-in">
-      <!-- 1. 메인 뷰 (보름달, 소원 빌기) -->
       <main class="main-content" v-if="activeView === 'main'" key="main">
         <div class="moon-wrapper">
           <div class="moon"></div>
@@ -18,10 +12,8 @@
         </div>
         <p class="greeting">{{ greetingMessage }}</p>
 
-        <!-- '소원 빌기' 버튼 -->
         <button @click="makeAWish" class="wish-button">소원 빌기</button>
 
-        <!-- 컨텐츠 네비게이션 버튼 -->
         <div class="nav-buttons">
           <button @click="activeView = 'food'" class="nav-button">
             한가위 음식
@@ -35,7 +27,6 @@
         </div>
       </main>
 
-      <!-- 2. 한가위 음식 뷰 -->
       <section
         class="content-section"
         v-else-if="activeView === 'food'"
@@ -43,7 +34,6 @@
       >
         <h2>추석의 대표 음식</h2>
         <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)">
-          <!-- 송편 카드 -->
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_송편.png"
@@ -57,7 +47,7 @@
               상징적인 떡입니다.
             </p>
           </div>
-          <!-- 전 카드 -->
+
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_전.png"
@@ -91,7 +81,6 @@
         </button>
       </section>
 
-      <!-- 3. 전통 풍습 뷰 -->
       <section
         class="content-section"
         v-else-if="activeView === 'game'"
@@ -99,7 +88,6 @@
       >
         <h2>한가위 전통 풍습</h2>
         <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)">
-          <!-- 강강술래 카드 -->
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_강강술래.png"
@@ -113,7 +101,7 @@
               기원하던 놀이입니다.
             </p>
           </div>
-          <!-- 윷놀이 카드 -->
+
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_윷놀이.png"
@@ -127,7 +115,7 @@
               다집니다.
             </p>
           </div>
-          <!-- 차례 카드 -->
+
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_차례상.png"
@@ -147,7 +135,6 @@
         </button>
       </section>
 
-      <!-- 4. 추석 이야기 뷰 -->
       <section
         class="content-section"
         v-else-if="activeView === 'story'"
@@ -155,7 +142,6 @@
       >
         <h2>추석 이야기</h2>
         <div class="card-grid" style="grid-template-columns: repeat(3, 1fr)">
-          <!-- 달토끼 카드 -->
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_달토끼.png"
@@ -172,7 +158,7 @@
               있습니다.
             </p>
           </div>
-          <!-- 속담 1 카드 -->
+
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_더말덜말.png"
@@ -188,7 +174,6 @@
               살고 싶다는 소망이 담겨 있습니다.
             </p>
           </div>
-          <!-- 속담 2 카드 -->
           <div class="info-card">
             <img
               src="/Gemini_Generated_Image_오농팔신.png"
@@ -221,15 +206,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-// 현재 보여줄 뷰를 관리하는 상태 ('main', 'food', 'game')
 const activeView = ref<"main" | "food" | "game" | "story">("main");
 
-// 한가위 인사말 (초기 메시지)
 const greetingMessage = ref<string>(
   "보름달처럼 넉넉하고 풍요로운 마음으로,\n즐거운 추석 연휴 보내시길 기원합니다."
 );
 
-// 소원 메시지 목록
 const wishes: string[] = [
   "당신의 소원이 꼭 이루어지길 바랍니다.",
   "늘 건강하고 행복하세요!",
@@ -237,9 +219,7 @@ const wishes: string[] = [
   "보름달처럼 환한 일만 가득하길!",
 ];
 
-// 소원 빌기 함수
 const makeAWish = () => {
-  // 현재 메시지와 다른 메시지를 뽑도록 필터링
   const otherWishes = wishes.filter((w) => w !== greetingMessage.value);
 
   let pool = otherWishes.length > 0 ? otherWishes : wishes;
@@ -248,7 +228,6 @@ const makeAWish = () => {
   greetingMessage.value = pool[randomIndex] as string;
 };
 
-// 이미지 에러 핸들러 (플레이스홀더용)
 const onImgError = (event: Event) => {
   const target = event.target as HTMLImageElement;
   target.src =
@@ -257,10 +236,8 @@ const onImgError = (event: Event) => {
 </script>
 
 <style scoped>
-/* 프리텐다드 웹폰트 임포트 (CDN) */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
-/* 전역 스타일 초기화 및 기본 설정 */
 :global(body, html) {
   margin: 0;
   padding: 0;
@@ -276,7 +253,6 @@ const onImgError = (event: Event) => {
   align-items: center;
 }
 
-/* 메인 컨테이너 스타일 */
 .chuseok-container {
   font-family: "Pretendard", sans-serif;
   display: flex;
@@ -290,10 +266,9 @@ const onImgError = (event: Event) => {
   padding: 2rem;
   box-sizing: border-box;
   text-align: center;
-  overflow-x: hidden; /* 가로 스크롤 방지 */
+  overflow-x: hidden;
 }
 
-/* 헤더 스타일 */
 .header h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -309,18 +284,16 @@ const onImgError = (event: Event) => {
   color: #d0c0a0;
 }
 
-/* --- 메인 컨텐츠 영역 (공통) --- */
 .main-content,
 .content-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1000px; /* 컨텐츠 최대 너비 제한 */
+  max-width: 1000px;
   margin: 5rem 0;
 }
 
-/* --- 트랜지션(Fade) 효과 --- */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.4s ease;
@@ -330,7 +303,6 @@ const onImgError = (event: Event) => {
   opacity: 0;
 }
 
-/* --- 메인 뷰 --- */
 .moon-wrapper {
   position: relative;
   animation: gentle-glow 4s ease-in-out infinite;
@@ -363,7 +335,7 @@ const onImgError = (event: Event) => {
   line-height: 1.8;
   margin-top: 5rem;
   max-width: 600px;
-  white-space: pre-line; /* \n 줄바꿈 적용 */
+  white-space: pre-line;
   transition: opacity 0.3s ease-in-out;
 }
 
@@ -392,7 +364,6 @@ const onImgError = (event: Event) => {
   transform: translateY(0);
 }
 
-/* 네비게이션 버튼 (신규) */
 .nav-buttons {
   display: flex;
   gap: 1rem;
@@ -417,7 +388,6 @@ const onImgError = (event: Event) => {
   transform: translateY(-2px);
 }
 
-/* --- 컨텐츠 섹션 (음식, 풍습) --- */
 .content-section h2 {
   font-size: 2.2rem;
   font-weight: 700;
@@ -425,16 +395,13 @@ const onImgError = (event: Event) => {
   margin-bottom: 2.5rem;
 }
 
-/* 카드 그리드 (신규) */
 .card-grid {
   display: grid;
   gap: 1.5rem;
   width: 100%;
 }
 
-/* 컨텐츠 카드 (신규) */
 .info-card {
-  /* Glassmorphism 스타일 */
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
@@ -458,7 +425,7 @@ const onImgError = (event: Event) => {
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 1rem;
-  background-color: #5a5a7d; /* 플레이스홀더 배경 */
+  background-color: #5a5a7d;
 }
 
 .info-card h3 {
@@ -474,9 +441,7 @@ const onImgError = (event: Event) => {
   line-height: 1.6;
 }
 
-/* 돌아가기 버튼 (신규) */
 .back-button {
-  /* .wish-button과 동일한 스타일 적용 */
   font-family: "Pretendard", sans-serif;
   font-size: 1rem;
   font-weight: 600;
@@ -497,15 +462,12 @@ const onImgError = (event: Event) => {
   box-shadow: 0 6px 20px rgba(240, 230, 210, 0.3);
 }
 
-/* --- 푸터 --- */
 .footer {
   font-size: 1rem;
   color: #d0c0a0;
   margin-top: 2rem;
-  /* 뷰 전환과 관계없이 항상 보이도록 main/section 밖으로 이동 */
 }
 
-/* --- 달빛 애니메이션 --- */
 @keyframes gentle-glow {
   0% {
     transform: scale(1);
@@ -521,7 +483,6 @@ const onImgError = (event: Event) => {
   }
 }
 
-/* --- 모바일 반응형 스타일 --- */
 @media (max-width: 768px) {
   .header h1 {
     font-size: 2.2rem;
@@ -550,9 +511,8 @@ const onImgError = (event: Event) => {
     padding: 0.6rem 1.2rem;
   }
 
-  /* 모바일에선 카드 그리드 1열로 */
   .card-grid {
-    grid-template-columns: 1fr !important; /* 인라인 스타일 덮어쓰기 */
+    grid-template-columns: 1fr !important;
   }
   .content-section h2 {
     font-size: 1.8rem;

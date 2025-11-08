@@ -261,22 +261,17 @@ class CardRegistry {
   }
 }
 
-// ============ Vue Composition API ============
-
 const activeView = ref<"main" | "food" | "game" | "story">("main");
 const greetingMessage = ref<string>(
   "보름달처럼 넉넉하고 풍요로운 마음으로,\n즐거운 추석 연휴 보내시길 기원합니다."
 );
 
-// Prototype 패턴: CardRegistry 인스턴스 생성
 const cardRegistry = new CardRegistry();
 
-// 각 카드 타입별 데이터 (프로토타입에서 복제됨)
 const foodCards = ref<ICard[]>([]);
 const customCards = ref<ICard[]>([]);
 const storyCards = ref<ICard[]>([]);
 
-// 컴포넌트 마운트 시 카드 복제
 onMounted(() => {
   foodCards.value = cardRegistry.getCardsByType("food");
   customCards.value = cardRegistry.getCardsByType("custom");
@@ -305,10 +300,8 @@ const onImgError = (event: Event) => {
 </script>
 
 <style scoped>
-/* 프리텐다드 웹폰트 임포트 (CDN) */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
-/* 전역 스타일 초기화 및 기본 설정 */
 :global(body, html) {
   margin: 0;
   padding: 0;
@@ -324,7 +317,6 @@ const onImgError = (event: Event) => {
   align-items: center;
 }
 
-/* 메인 컨테이너 스타일 */
 .chuseok-container {
   font-family: "Pretendard", sans-serif;
   display: flex;
@@ -341,7 +333,6 @@ const onImgError = (event: Event) => {
   overflow-x: hidden;
 }
 
-/* 헤더 스타일 */
 .header h1 {
   font-size: 3rem;
   font-weight: 700;
@@ -357,7 +348,6 @@ const onImgError = (event: Event) => {
   color: #d0c0a0;
 }
 
-/* --- 메인 컨텐츠 영역 (공통) --- */
 .main-content,
 .content-section {
   display: flex;
@@ -368,7 +358,6 @@ const onImgError = (event: Event) => {
   margin: 5rem 0;
 }
 
-/* --- 트랜지션(Fade) 효과 --- */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.4s ease;
@@ -378,7 +367,6 @@ const onImgError = (event: Event) => {
   opacity: 0;
 }
 
-/* --- 메인 뷰 --- */
 .moon-wrapper {
   position: relative;
   animation: gentle-glow 4s ease-in-out infinite;
@@ -440,7 +428,6 @@ const onImgError = (event: Event) => {
   transform: translateY(0);
 }
 
-/* 네비게이션 버튼 */
 .nav-buttons {
   display: flex;
   gap: 1rem;
@@ -465,7 +452,6 @@ const onImgError = (event: Event) => {
   transform: translateY(-2px);
 }
 
-/* --- 컨텐츠 섹션 --- */
 .content-section h2 {
   font-size: 2.2rem;
   font-weight: 700;
@@ -473,14 +459,12 @@ const onImgError = (event: Event) => {
   margin-bottom: 2.5rem;
 }
 
-/* 카드 그리드 */
 .card-grid {
   display: grid;
   gap: 1.5rem;
   width: 100%;
 }
 
-/* 컨텐츠 카드 */
 .info-card {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -521,7 +505,6 @@ const onImgError = (event: Event) => {
   line-height: 1.6;
 }
 
-/* 돌아가기 버튼 */
 .back-button {
   font-family: "Pretendard", sans-serif;
   font-size: 1rem;
@@ -543,14 +526,12 @@ const onImgError = (event: Event) => {
   box-shadow: 0 6px 20px rgba(240, 230, 210, 0.3);
 }
 
-/* --- 푸터 --- */
 .footer {
   font-size: 1rem;
   color: #d0c0a0;
   margin-top: 2rem;
 }
 
-/* --- 달빛 애니메이션 --- */
 @keyframes gentle-glow {
   0% {
     transform: scale(1);
@@ -566,7 +547,6 @@ const onImgError = (event: Event) => {
   }
 }
 
-/* --- 모바일 반응형 스타일 --- */
 @media (max-width: 768px) {
   .header h1 {
     font-size: 2.2rem;
